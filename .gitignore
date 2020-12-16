@@ -3,11 +3,7 @@
 
 __pycache__/
 
-content/media/attach
-content/media/avatar
-content/media/group
-content/media/page
-content/media/thumb
+content/media/
 content/static/
 sent_emails
 env/
