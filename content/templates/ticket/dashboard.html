@@ -1,0 +1,30 @@
+
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+    <div class="main-section">
+        <div class="container">
+        <div class="main-section-data">
+            <div class="row">
+                <div class="header_ticket">
+                    <button class="btn btn_ticket">Action</button>
+                    <a class="btn btn_ticket" href="{% url 'ticket:create' %}">Add Ticket</a>                    
+                </div>
+            </div>
+            <div class="body_ticket">     
+                <div class="row">
+                    <div class="col-md-12">
+                        <table class="table">
+                            <tbody class="ticket_list">
+                                
+                            </tbody>
+                            
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div><!-- main-section-data end-->
+        </div>
+    </div>     
+    
+{% endblock %}

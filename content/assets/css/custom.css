@@ -1,0 +1,125 @@
+/* auth_page */
+.process-comm{
+    position: fixed;
+    z-index: 999;
+    width: 100%;    
+    height: 100vh;
+    background-color: rgb(251 247 247 / 0.25);    
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    display: none;
+}
+.alertborder {
+    border-color: #ee0000!important;
+}
+
+.alert_txt {
+    color: #ee0000;
+    margin-top: 10px;
+    display: none;
+}
+.btn-sel-gender
+{
+    position: relative;
+    margin-bottom: 12px;
+    cursor: pointer;
+    font-size: 20px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    font-family: Poppins-Regular;
+    font-size: 0.9rem;
+    padding: 6px 0px 6px 20px;
+    width: 100%;
+    border: 1px solid #ced4da;
+    border-radius: 5px;
+    height: 38px;
+}
+.btn-sel-gender input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+}
+.btn-sel-gender input:checked ~ .checkround_user {
+    background-color: #40c229;
+    border-color: #32aa1d;
+    transition: 0.8s;
+}
+.checkround_user {
+    position: absolute;
+    top: 10px;
+    left: 5px;
+    height: 15px;
+    width: 15px;
+    background-color: #dedede;
+    border-color: #d0d0d0;
+    border-style: solid;
+    border-width: 2px;
+    border-radius: 50%;
+}
+.radio_txt{
+    font-size: 14px;
+    line-height: 24px;
+    margin-left: 2px;
+    font-family: arial;
+}
+
+.btn_switch_email_phone
+{
+    background-color: transparent;
+    color: #357ebd;
+    border: none;
+    padding: 0px;
+    font-weight: 600;
+    transition: 0.5s;
+    outline: none!important;
+    box-shadow: none!important;
+}
+.btn_switch_email_phone:hover
+{
+    background-color: transparent;
+    color: #155892;
+    border: none;
+    padding: 0px;
+    font-weight: 600;
+}
+.form_warp_email{
+    
+}
+
+/* home */
+.selected_nav{
+    color: #63f924;
+}
+.btn_ticket{
+    border: 1px solid #b7b5b5;
+    padding: 5px 10px;
+    font-weight: 600;
+}
+.header_ticket h3{
+    font-size: 20px;
+    font-weight: 600;
+}
+.body_ticket{
+    margin-top: 20px;
+    border: 1px solid #dedede;
+    padding: 15px;
+}
+.text-red{
+    color: rgb(214, 60, 33);
+}
+.text-green{
+    color: #32aa1d;
+}
+.btn_blue{
+    background-color: #00557d;
+    color: #fff;
+}
+.btn_transparent{
+    border: none;
+    background-color: transparent;
+    box-shadow: none!important;
+    outline: none!important;
+}

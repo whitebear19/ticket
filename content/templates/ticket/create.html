@@ -1,0 +1,202 @@
+
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+    <div class="main-section">
+        <div class="container">        
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="header_ticket">
+                        {% if ticket %}
+                            <h3>Edit Ticket</h3>
+                        {% else %}
+                            <h3>Creating New Ticket</h3>
+                        {% endif %}
+                        
+                    </div>
+                </div>
+            </div>
+            <form action="" id="form_ticket" method="post">
+                {% csrf_token %}
+                <div class="body_ticket">     
+                    <div class="row">
+                        <div class="col-md-6">
+                            <table class="table">
+                                <tr>
+                                    <td><label for="">Date of Incident <span class="text-red">*</span></label></td>
+                                    <td>
+                                        <input type="date" name="date_of_incident" class="form-control required"
+                                            {% if ticket %}
+                                                value="{{ ticket.date_of_incident }}"
+                                            {% endif %}
+                                            name="">
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><label for="">Contact Name <span class="text-red">*</span></label></td>
+                                    <td>
+                                        <input type="text" name="contact_name" class="form-control required"
+                                            {% if ticket %}
+                                                value="{{ ticket.contact_name }}"
+                                            {% endif %}
+                                        name="">
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><label for="">Contact Number <span class="text-red">*</span></label></td>
+                                    <td>
+                                        <input type="text" name="contact_number" class="form-control required"
+                                            {% if ticket %}
+                                                value="{{ ticket.contact_number }}"
+                                            {% endif %}
+                                        name="">
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><label for="">Insurer</label></td>
+                                    <td>
+                                        <select name="insurer" class="form-control" name="">
+                                            <option value="">--select--</option>
+                                            <option value="AXA">AXA</option>
+                                            <option value="Berjaya">Berjaya</option>
+                                            <option value="Pacific">Pacific</option>
+                                        </select>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><label for="">Ticket Type <span class="text-red">*</span></label></td>
+                                    <td>
+                                        <select name="ticket_type" class="form-control required" name="">
+                                            <option value="">--select--</option>
+                                            <option value="Towing/Carrier">Towing/Carrier</option>
+                                            <option value="Towing Basement">Towing Basement</option>
+                                            <option value="Change Battery">Change Battery</option>
+                                            <option value="Jump Start">Jump Start</option>
+                                        </select>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><label for="">Ticket Status <span class="text-red">*</span></label></td>
+                                    <td>
+                                        <select name="ticket_status" class="form-control required" name="">
+                                            <option value="In Progress">In Progress</option>
+                                            <option value="Completed">Completed</option>
+                                        </select>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><label for="">Vehicle Registration Number <span class="text-red">*</span></label></td>
+                                    <td>
+                                        <input type="text" name="vehicle_reg_num" class="form-control required" placeholder="ABC1234"
+                                        {% if ticket %}
+                                            value="{{ ticket.vehicle_reg_num }}"
+                                        {% endif %}
+                                        name="">
+                                    </td>
+                                </tr>
+                            </table>                         
+                        </div>    
+                        <div class="col-md-6">
+                            <table class="table">
+                                <tr>
+                                    <td><label for="">Vehicle Manufacturer</label></td>
+                                    <td>
+                                        <select name="vehicle_manufacturer" class="form-control" name="">
+                                            <option value="">--select--</option>
+                                            <option value="BMW">BMW</option>
+                                            <option value="Mercedes">Mercedes</option>
+                                            <option value="Proton">Proton</option>
+                                        </select>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><label for="">Vehicle Model</label></td>
+                                    <td>
+                                        <input type="text" name="vehicle_model" class="form-control"
+                                        {% if ticket %}
+                                            value="{{ ticket.vehicle_model }}"
+                                        {% endif %}
+                                        name="">
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><label for="">Assigned To <span class="text-red">*</span></label></td>
+                                    <td>
+                                        <select name="assigned_to" class="form-control required" name="">                                            
+                                            <option value="{{ user.username }}">{{ user.username }}</option>                                            
+                                        </select>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><label for="">Tow From</label></td>
+                                    <td>
+                                        <input type="text" name="tow_from" class="form-control"
+                                        {% if ticket %}
+                                            value="{{ ticket.tow_from }}"
+                                        {% endif %}
+                                        name="">
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><label for="">Tow To Workshop <span class="text-red">*</span></label></td>
+                                    <td>
+                                        <select name="tow_to_workshop" class="form-control" name="">
+                                            <option value="">--select--</option>                                            
+                                        </select>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><label for="">Tow To Address <span class="text-red">*</span></label></td>
+                                    <td>
+                                        <input type="text" name="tow_to_address" class="form-control"
+                                        {% if ticket %}
+                                            value="{{ ticket.tow_to_address }}"
+                                        {% endif %}
+                                        name="">
+                                    </td>
+                                </tr>                                
+                            </table>                         
+                        </div>  
+                        <div class="col-md-12 text-center">
+                            <button type="button" class="btn btn_blue btn_create_ticket">
+                                {% if ticket %}
+                                    <h3>Update</h3>
+                                {% else %}
+                                    <h3>Submit</h3>
+                                {% endif %}                                
+                            </button>
+                        </div>         
+                    </div>
+                </div>
+                {% if ticket %}
+                    <input type="hidden" name="which" class="which" value="{{ ticket.id }}">                
+                {% else %}
+                    <input type="hidden" name="which" class="which" value="0">
+                {% endif %}
+            </form>            
+        </div>
+    </div>     
+
+    {% if ticket %}       
+        <input type="hidden" class="insurer" value="{{ ticket.insurer }}">
+        <input type="hidden" class="ticket_type" value="{{ ticket.ticket_type }}">
+        <input type="hidden" class="ticket_status" value="{{ ticket.ticket_status }}">
+        <input type="hidden" class="vehicle_manufacturer" value="{{ ticket.vehicle_manufacturer }}">    
+    {% endif %}
+    <script>
+        $(document).ready(function(){
+            var which = parseInt($(".which").val());
+            if(which > 0)
+            {
+                var insurer = $(".insurer").val();
+                var ticket_type = $(".ticket_type").val();
+                var ticket_status = $(".ticket_status").val();
+                var vehicle_manufacturer = $(".vehicle_manufacturer").val();
+                $('select[name="insurer"] option[value="'+insurer+'"]').attr('selected','selected');
+                $('select[name="ticket_type"] option[value="'+ticket_type+'"]').attr('selected','selected');
+                $('select[name="ticket_status"] option[value="'+ticket_status+'"]').attr('selected','selected');
+                $('select[name="vehicle_manufacturer"] option[value="'+vehicle_manufacturer+'"]').attr('selected','selected');
+            }
+        });
+    </script>
+{% endblock %}
