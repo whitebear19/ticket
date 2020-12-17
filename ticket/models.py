@@ -25,3 +25,18 @@ class Tickets(models.Model):
     created_at = models.DateTimeField(auto_now_add=True,blank=True) 
     class Meta:
         db_table = 'tickets'
+
+
+class VehicleManufacturer(models.Model):
+    id=models.AutoField(primary_key=True)
+    name = models.CharField(default='',max_length=255, null=True)
+    created_at = models.DateTimeField(auto_now_add=True,blank=True) 
+    class Meta:
+        db_table = 'vehiclemanufacturer'
+
+class TowToWorkshop(models.Model):
+    id=models.AutoField(primary_key=True)
+    name = models.CharField(default='',max_length=255, null=True)
+    created_at = models.DateTimeField(auto_now_add=True,blank=True) 
+    class Meta:
+        db_table = 'towtoworkshop'

@@ -193,11 +193,30 @@ jQuery(function ($) {
             });
         });
         
-        // $(document).on('click','.btn_edit_ticket',function(){
-        //     var id = $(this).data('id');
-                      
-        // });
-        
+        $(document).on('click','.btn_send_link',function(){
+            var is_check = true;
+            if($("input[name='contact_number']").val()=="")
+            {
+                $("input[name='contact_number']").addClass('alertborder');
+                is_check = false;
+            }    
+            if($("input[name='vehicle_reg_num']").val()=="")
+            {
+                $("input[name='vehicle_reg_num']").addClass('alertborder');
+                is_check = false;
+            }         
+            if(is_check)
+            {
+
+            }   
+            else
+            {
+                return false;
+            }      
+        });
+        $(document).on('click','.alertborder',function(){
+            $(this).removeClass('alertborder');
+        });
     }());   
     
     (function () {

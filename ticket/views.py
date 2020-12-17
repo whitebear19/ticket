@@ -29,7 +29,7 @@ from django.core.mail import send_mail,EmailMessage
 from django.template.loader import render_to_string, get_template
 from django.utils.html import strip_tags
 from twilio.rest import Client
-from ticket.models import Tickets
+from ticket.models import Tickets,VehicleManufacturer,TowToWorkshop
 
 PAGINATION_COUNT = 21
 
@@ -46,15 +46,18 @@ def create(request):
     if not request.user.is_authenticated:
         return redirect('/login')
     user = request.user 
-    
+    vehicle_manufacturer = VehicleManufacturer.objects.all().order_by('name')
+    towtoworkshop = TowToWorkshop.objects.all().order_by('name')
     nav = 'ticket'
-    return render(request,'ticket/create.html',{'nav':nav}) 
+    return render(request,'ticket/create.html',{'nav':nav,'towtoworkshop':towtoworkshop,'vehicle_manufacturer':vehicle_manufacturer}) 
 
 def edit(request,id):
     try:        
         row = Tickets.objects.get(id=id)
+        vehicle_manufacturer = VehicleManufacturer.objects.all().order_by('name')
+        towtoworkshop = TowToWorkshop.objects.all().order_by('name')
         nav = 'ticket'
-        return render(request,'ticket/create.html',{'nav':nav,'ticket':row})         
+        return render(request,'ticket/create.html',{'nav':nav,'ticket':row,'towtoworkshop':towtoworkshop,'vehicle_manufacturer':vehicle_manufacturer})         
     except:
         nav = 'ticket'
         return redirect('/ticket/dashboard')

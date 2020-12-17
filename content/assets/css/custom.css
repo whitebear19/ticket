@@ -116,10 +116,26 @@
 .btn_blue{
     background-color: #00557d;
     color: #fff;
+    border: 1px solid #00557d;
+    outline: none!important;
+    box-shadow: none!important;
+    background-color: #00557d;
+    color: #fff;
+    font-weight: 600;
+    transition: 0.35s;
 }
+.btn_blue:hover{    
+    background-color:transparent;
+    color: #00557d;    
+}
+
 .btn_transparent{
     border: none;
     background-color: transparent;
     box-shadow: none!important;
     outline: none!important;
+}
+
+.btn_send_link{
+    width: 150px;    
 }
