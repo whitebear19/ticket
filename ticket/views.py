@@ -160,8 +160,9 @@ def send_link(request):
         num = request.GET.get('num')
         
         # auth_token  = "your_auth_token"
+        # account_sid = ""
         # client = Client(account_sid, auth_token)
-        # data = id
+        # data = "http://ticket.thetravelstreet.com/user/"+str(id)
         # message = client.messages.create(
         #     to=phone, 
         #     from_="+15017250604",
@@ -206,11 +207,37 @@ def get_location_response(request):
 def get_location(request):
     try:
         id = request.GET.get('id')
-        row = Location.objects.get(id=id)
-        if row.country:
-            location = row.city + " " + row.state + " " + row.country
-        else:
-            location = ""
+        location = ""
+        url = 'http://ticket.thetravelstreet.com/userinfo.return'
+        resp = requests.get(url=url)
+        data = resp.json()
+        results=json.dumps(data) 
+        results=json.loads(results)   
+        print(results)     
+        for item in results:
+            locations = Location.objects.all()
+            for row in locations:    
+                if item['userid'] == id:
+                    location = item['city'] + " " +  item['state'] + " " + item['country']  
+                if str(row.id) == item['userid']:
+                    try:
+                        if item['latitude']:
+                            row.lat = item['latitude']
+                        if item['longitude']:
+                            row.lng = item['longitude']
+                        if item['country']:
+                            row.country = item['country']
+                        if item['zipcode']:
+                            row.zipcode = item['zipcode']
+                        if item['state']:
+                            row.state = item['state']
+                        if item['city']:
+                            row.city = item['city']
+                        row.save()
+                    except:
+                        print("issue")
+                        pass
+                
         return JsonResponse({'results':True,'location':location})
     except:
         return JsonResponse({'results':False})

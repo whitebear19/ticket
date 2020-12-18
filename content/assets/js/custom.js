@@ -107,31 +107,8 @@ jQuery(function ($) {
                 }
             });
        }
-        $(document).ready(function(){
-            get_tickets(); 
-            get_location_response();
-            setInterval(function () {
-                get_location_response();
-            },3600000);
-        });        
-    }());
-
- 
-
-    (function () {
-        
-    }());
-
-    (function () {
-        
-    }());   
-    
-
-    // ticket app
-
-    (function () {   
-             
-        $(document).on('click','.btn_create_ticket',function(){            
+       $(document).on('click','.btn_create_ticket',function()
+       {            
             var checkvalid = true;       
             $(".required").each(function(){
                 if($(this).val() == "")
@@ -236,6 +213,7 @@ jQuery(function ($) {
             }
             if(checkvalid)
             {
+                $("#loading").css('display','flex');
                 $.ajax({
                     url: "/ticket/get_location",
                     method: 'GET',
@@ -243,6 +221,7 @@ jQuery(function ($) {
                     data: {id:$("input[name='locationID']").val()},
                     success: function(response) 
                     {
+                        $("#loading").css('display','none');
                         if(response.location == "")
                         {                            
                             swal({
@@ -314,12 +293,17 @@ jQuery(function ($) {
             $(this).removeClass('alertborder');
         });
 
-    }());   
-    
-    (function () {
-        
-    }());   
+        $(document).ready(function(){
+            get_tickets(); 
+            get_location_response();
+           
+        });        
+    }());
 
+ 
+
+  
+   
 });
 
 
