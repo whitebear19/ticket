@@ -132,14 +132,17 @@
                                 <tr>
                                     <td><label for="">Tow From</label></td>
                                     <td>
-                                        <div class="d-flex">
-                                            <input type="text" name="tow_from" class="form-control mr-2"
+                                        <input type="text" name="tow_from" class="form-control mr-2"
                                             {% if ticket %}
                                                 value="{{ ticket.tow_from }}"
                                             {% endif %}
                                             name="">
-                                            <button type="button" class="btn btn_blue btn_send_link">
+                                        <div class="d-flex mt-3">                                            
+                                            <button type="button" class="btn btn_blue btn_send_link mr-2">
                                                 Send Link
+                                            </button>
+                                            <button type="button" class="btn btn_blue btn_get_location">
+                                                Get Location
                                             </button>
                                         </div>
                                         

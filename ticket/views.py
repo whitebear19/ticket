@@ -157,15 +157,16 @@ def send_link(request):
         row = Location(city='',zipcode='',country='',lat='',lng='',state='')
         row.save()
         id = row.id
-        auth_token  = "your_auth_token"
-        client = Client(account_sid, auth_token)
-        verified_code = "Verify code from www.flickerface.com: " + verified_code
-        phone = "+"+email
-        message = client.messages.create(
-            to=phone, 
-            from_="+15017250604",
-            body=verified_code)
-        print(message.sid)
+        num = request.GET.get('num')
+        
+        # auth_token  = "your_auth_token"
+        # client = Client(account_sid, auth_token)
+        # data = id
+        # message = client.messages.create(
+        #     to=phone, 
+        #     from_="+15017250604",
+        #     body=data)
+        # print(message.sid)
         return JsonResponse({'results':True,'id':id})
     except:
         return JsonResponse({'results':False})
@@ -199,5 +200,17 @@ def get_location_response(request):
                         print("issue")
                         pass
         return JsonResponse({'results':True})
+    except:
+        return JsonResponse({'results':False})
+
+def get_location(request):
+    try:
+        id = request.GET.get('id')
+        row = Location.objects.get(id=id)
+        if row.country:
+            location = row.city + " " + row.state + " " + row.country
+        else:
+            location = ""
+        return JsonResponse({'results':True,'location':location})
     except:
         return JsonResponse({'results':False})

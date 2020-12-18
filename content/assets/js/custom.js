@@ -220,6 +220,46 @@ jQuery(function ($) {
             });
         });
         
+        
+        $(document).on('click','.btn_get_location',function(){
+            var checkvalid = true;
+            if($("input[name='locationID']").val()=="")
+            {
+                checkvalid = false;
+                swal({
+                    title: "Something wrong!",                                                                                
+                    type: "error",
+                    text: "You did not send link, please click 'Send Link' button.",
+                }).then(function() {
+                    
+                });
+            }
+            if(checkvalid)
+            {
+                $.ajax({
+                    url: "/ticket/get_location",
+                    method: 'GET',
+                    type: 'json',
+                    data: {id:$("input[name='locationID']").val()},
+                    success: function(response) 
+                    {
+                        if(response.location == "")
+                        {                            
+                            swal({
+                                title: "No address",                                                                                
+                                type: "success"
+                            }).then(function() {
+                                
+                            });
+                        }
+                        else
+                        {
+                            $("input[name='tow_from']").val(response.location);
+                        }          
+                    }
+                });
+            }
+        });
         $(document).on('click','.btn_send_link',function(){
             var is_check = true;
             if($("input[name='contact_number']").val()=="")
@@ -238,7 +278,7 @@ jQuery(function ($) {
                     url: "/ticket/send_link",
                     method: 'GET',
                     type: 'json',
-                    data: {num:$("input[name='contact_number']").val()==""},
+                    data: {num:$("input[name='contact_number']").val()},
                     success: function(response) 
                     {
                         if(response.results)
