@@ -96,11 +96,24 @@ jQuery(function ($) {
             });
        }
 
-
+        function get_location_response(params) {
+            $.ajax({
+                url: "/ticket/get_location_response",
+                method: 'get',
+                type: 'json',
+                success: function(response) 
+                {
+                    console.log(response);
+                }
+            });
+       }
         $(document).ready(function(){
-            get_tickets();      
-        });
-        
+            get_tickets(); 
+            get_location_response();
+            setInterval(function () {
+                get_location_response();
+            },3600000);
+        });        
     }());
 
  
@@ -127,6 +140,20 @@ jQuery(function ($) {
                     checkvalid = false;
                 }
             });
+            if($("input[name='which']").val()=="0")
+            {
+                if($("input[name='locationID']").val()=="")
+                {
+                    checkvalid = false;
+                    swal({
+                        title: "Something wrong!",                                                                                
+                        type: "error",
+                        text: "You did not send link, please click 'Send Link' button.",
+                    }).then(function() {
+                        
+                    });
+                }
+            }
             if(checkvalid)
             {
                 var data = $("#form_ticket").serialize();
@@ -207,7 +234,36 @@ jQuery(function ($) {
             }         
             if(is_check)
             {
-
+                $.ajax({
+                    url: "/ticket/send_link",
+                    method: 'GET',
+                    type: 'json',
+                    data: {num:$("input[name='contact_number']").val()==""},
+                    success: function(response) 
+                    {
+                        if(response.results)
+                        {
+                            var id = response.id;
+                            $("input[name='locationID']").val(id);
+                            swal({
+                                title: "Successfully sent!",                                                                                
+                                type: "success"
+                            }).then(function() {
+                                
+                            });
+                        }
+                        else
+                        {
+                            swal({
+                                title: "Something wrong!",                                                                                
+                                type: "error",
+                                text: "Please try again",
+                            }).then(function() {
+                                location.reload()
+                            });
+                        }          
+                    }
+                });
             }   
             else
             {
@@ -217,6 +273,7 @@ jQuery(function ($) {
         $(document).on('click','.alertborder',function(){
             $(this).removeClass('alertborder');
         });
+
     }());   
     
     (function () {

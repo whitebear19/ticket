@@ -12,5 +12,7 @@ urlpatterns = [
     path('store',view=views.store, name='store'),
     path('get_tickets',view=views.get_tickets, name='get_tickets'),
     path('delete',view=views.delete, name='delete'),
+    path('send_link',view=views.send_link, name='send_link'),
+    path('get_location_response',view=views.get_location_response, name='get_location_response'),
     
 ]

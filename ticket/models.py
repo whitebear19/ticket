@@ -22,6 +22,7 @@ class Tickets(models.Model):
     tow_from = models.CharField(default='',max_length=255, null=True)  
     tow_to_workshop = models.CharField(default='',max_length=255, null=True)  
     tow_to_address = models.CharField(default='',max_length=255, null=True) 
+    locationID = models.CharField(default='',max_length=255, null=True) 
     created_at = models.DateTimeField(auto_now_add=True,blank=True) 
     class Meta:
         db_table = 'tickets'
@@ -40,3 +41,15 @@ class TowToWorkshop(models.Model):
     created_at = models.DateTimeField(auto_now_add=True,blank=True) 
     class Meta:
         db_table = 'towtoworkshop'
+
+class Location(models.Model):
+    id=models.AutoField(primary_key=True)
+    city = models.CharField(default='',max_length=255, null=True)
+    zipcode = models.CharField(default='',max_length=255, null=True)
+    country = models.CharField(default='',max_length=255, null=True)
+    lat = models.CharField(default='',max_length=255, null=True)
+    lng = models.CharField(default='',max_length=255, null=True)
+    state = models.CharField(default='',max_length=255, null=True)    
+    created_at = models.DateTimeField(auto_now_add=True,blank=True) 
+    class Meta:
+        db_table = 'location'

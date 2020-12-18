@@ -29,7 +29,7 @@ from django.core.mail import send_mail,EmailMessage
 from django.template.loader import render_to_string, get_template
 from django.utils.html import strip_tags
 from twilio.rest import Client
-from ticket.models import Tickets,VehicleManufacturer,TowToWorkshop
+from ticket.models import Tickets,VehicleManufacturer,TowToWorkshop,Location
 
 PAGINATION_COUNT = 21
 
@@ -37,8 +37,7 @@ PAGINATION_COUNT = 21
 def dashboard(request):
     if not request.user.is_authenticated:
         return redirect('/login')
-    user = request.user 
-    
+    user = request.user     
     nav = 'ticket'
     return render(request,'ticket/dashboard.html',{'nav':nav}) 
 
@@ -85,7 +84,8 @@ def store(request):
             tow_from = request.POST.get('tow_from')
             tow_to_workshop = request.POST.get('tow_to_workshop')
             tow_to_address = request.POST.get('tow_to_address')
-            row = Tickets(date_of_incident=date_of_incident,contact_name=contact_name,contact_number=contact_number,insurer=insurer,ticket_type=ticket_type,ticket_status=ticket_status,vehicle_reg_num=vehicle_reg_num,vehicle_manufacturer=vehicle_manufacturer,vehicle_model=vehicle_model,assigned_to=assigned_to,tow_from=tow_from,tow_to_workshop=tow_to_workshop,tow_to_address=tow_to_address)
+            locationID = request.POST.get('locationID')
+            row = Tickets(date_of_incident=date_of_incident,contact_name=contact_name,contact_number=contact_number,insurer=insurer,ticket_type=ticket_type,ticket_status=ticket_status,vehicle_reg_num=vehicle_reg_num,vehicle_manufacturer=vehicle_manufacturer,vehicle_model=vehicle_model,assigned_to=assigned_to,tow_from=tow_from,tow_to_workshop=tow_to_workshop,tow_to_address=tow_to_address,locationID=locationID)
             row.save() 
         else:
             row = Tickets.objects.get(id=id)
@@ -152,4 +152,43 @@ def delete(request):
     except:
         return JsonResponse({'results':False})
 
+def send_link(request):
+    try:        
+        row = Location(city='',zipcode='',country='',lat='',lng='',state='')
+        row.save()
+        id = row.id
+        return JsonResponse({'results':True,'id':id})
+    except:
+        return JsonResponse({'results':False})
 
+def get_location_response(request):
+    try:
+        url = 'http://ticket.thetravelstreet.com/userinfo.return'
+        resp = requests.get(url=url)
+        data = resp.json()
+        results=json.dumps(data) 
+        results=json.loads(results)        
+        for item in results:
+            locations = Location.objects.all()
+            for row in locations:               
+                if str(row.id) == item['userid']:
+                    try:
+                        if item['latitude']:
+                            row.lat = item['latitude']
+                        if item['longitude']:
+                            row.lng = item['longitude']
+                        if item['country']:
+                            row.country = item['country']
+                        if item['zipcode']:
+                            row.zipcode = item['zipcode']
+                        if item['state']:
+                            row.state = item['state']
+                        if item['city']:
+                            row.city = item['city']
+                        row.save()
+                    except:
+                        print("issue")
+                        pass
+        return JsonResponse({'results':True})
+    except:
+        return JsonResponse({'results':False})
