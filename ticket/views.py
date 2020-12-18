@@ -157,6 +157,15 @@ def send_link(request):
         row = Location(city='',zipcode='',country='',lat='',lng='',state='')
         row.save()
         id = row.id
+        auth_token  = "your_auth_token"
+        client = Client(account_sid, auth_token)
+        verified_code = "Verify code from www.flickerface.com: " + verified_code
+        phone = "+"+email
+        message = client.messages.create(
+            to=phone, 
+            from_="+15017250604",
+            body=verified_code)
+        print(message.sid)
         return JsonResponse({'results':True,'id':id})
     except:
         return JsonResponse({'results':False})
