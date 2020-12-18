@@ -226,7 +226,7 @@ jQuery(function ($) {
                         {                            
                             swal({
                                 title: "No address",                                                                                
-                                type: "success"
+                                type: "error"
                             }).then(function() {
                                 
                             });
