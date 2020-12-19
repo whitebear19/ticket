@@ -3,6 +3,7 @@ jQuery(function ($) {
     'use strict';
     var user_name = '';
     var invite_user_array = [];
+    var is_location = false;
    
 // ----------------------------------------------------------------
    
@@ -222,19 +223,31 @@ jQuery(function ($) {
                     success: function(response) 
                     {
                         $("#loading").css('display','none');
-                        if(response.location == "")
-                        {                            
-                            swal({
-                                title: "No address",                                                                                
-                                type: "error"
-                            }).then(function() {
-                                
-                            });
-                        }
+                        if(response.allow == "1")
+                        {
+                            if(response.location == "")
+                            {                            
+                                swal({
+                                    title: "No address",                                                                                
+                                    type: "error"
+                                }).then(function() {
+                                    
+                                });
+                            }
+                            else
+                            {
+                                $("input[name='tow_from']").val(response.location);
+                            }
+                        } 
                         else
                         {
-                            $("input[name='tow_from']").val(response.location);
-                        }          
+                            swal({
+                                title: "Not allow to get location!",                                                                                
+                                type: "error"
+                            }).then(function() {
+                                $("input[name='tow_from']").focus();
+                            });
+                        }                                 
                     }
                 });
             }

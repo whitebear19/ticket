@@ -213,12 +213,14 @@ def get_location(request):
         data = resp.json()
         results=json.dumps(data) 
         results=json.loads(results)   
-        print(results)     
+        print(results)   
+        allow = ''  
         for item in results:
             locations = Location.objects.all()
             for row in locations:    
                 if item['userid'] == id:
-                    location = item['city'] + " " +  item['state'] + " " + item['country']  
+                    location = item['city'] + " " +  item['state'] + " " + item['country']
+                    allow = item['allow'] 
                 if str(row.id) == item['userid']:
                     try:
                         if item['latitude']:
@@ -238,6 +240,6 @@ def get_location(request):
                         print("issue")
                         pass
                 
-        return JsonResponse({'results':True,'location':location})
+        return JsonResponse({'results':True,'location':location,'allow':allow})
     except:
         return JsonResponse({'results':False})

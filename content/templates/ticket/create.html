@@ -130,9 +130,9 @@
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td><label for="">Tow From</label></td>
+                                    <td><label for="">Tow From <span class="text-red">*</span></label></td>
                                     <td>
-                                        <input type="text" name="tow_from" class="form-control mr-2"
+                                        <input type="text" name="tow_from" class="form-control required mr-2"
                                             {% if ticket %}
                                                 value="{{ ticket.tow_from }}"
                                             {% endif %}
