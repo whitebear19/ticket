@@ -232,20 +232,21 @@ jQuery(function ($) {
                             {                            
                                 swal({
                                     title: "No address",                                                                                
-                                    type: "error"
+                                    type: "error",
+                                    text: "Please try again."
                                 }).then(function() {
                                     
                                 });
                             }
                             else
                             {
-                                $("input[name='tow_from']").val(response.location);
+                                $("input[name='tow_from']").val(response.location);                                
                             }
                         } 
                         else
                         {
                             swal({
-                                title: "Not allow to get location!",                                                                                
+                                title: "User did not click the link yet!",                                                                                
                                 type: "error"
                             }).then(function() {
                                 $("input[name='tow_from']").focus();
