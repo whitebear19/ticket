@@ -147,3 +147,18 @@
     align-items: center;
     display: none;
 }
+thead tr td{
+    font-weight: 600;
+}
+.wrapper_part{
+    padding: 10px 0px;
+    border: 1px solid #dedede;    
+}
+.wrapper_item{
+    padding: 10px;
+}
+.wrapper_item .title{
+    font-size: 20px;
+    font-weight: 600;
+    margin-bottom: 10px;
+}

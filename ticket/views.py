@@ -31,7 +31,7 @@ from django.utils.html import strip_tags
 from twilio.rest import Client
 from ticket.models import Tickets,VehicleManufacturer,TowToWorkshop,Location
 
-PAGINATION_COUNT = 21
+PAGINATION_COUNT = 200
 
 
 def dashboard(request):
@@ -39,7 +39,9 @@ def dashboard(request):
         return redirect('/login')
     user = request.user     
     nav = 'ticket'
-    return render(request,'ticket/dashboard.html',{'nav':nav}) 
+    vehicle_manufacturer = VehicleManufacturer.objects.all().order_by('name')
+    towtoworkshop = TowToWorkshop.objects.all().order_by('name')
+    return render(request,'ticket/dashboard.html',{'nav':nav,'towtoworkshop':towtoworkshop,'vehicle_manufacturer':vehicle_manufacturer}) 
 
 def create(request):
     if not request.user.is_authenticated:
@@ -112,11 +114,52 @@ def get_tickets(request):
     pagenum = 0
 
     try:
+        date_of_incident = request.GET.get('date_of_incident')
+        contact_name = request.GET.get('contact_name')
+        contact_number = request.GET.get('contact_number')
+        insurer = request.GET.get('insurer')
+        ticket_type = request.GET.get('ticket_type')
+        ticket_status = request.GET.get('ticket_status')
+        vehicle_reg_num = request.GET.get('vehicle_reg_num')
+        vehicle_manufacturer = request.GET.get('vehicle_manufacturer')
+        vehicle_model = request.GET.get('vehicle_model')
+        assigned_to = request.GET.get('assigned_to')
+        tow_from = request.GET.get('tow_from')
+        tow_to_workshop = request.GET.get('tow_to_workshop')
+        tow_to_address = request.GET.get('tow_to_address')
+        
         user = request.user
         currentPage = request.GET.get('currentPage')       
         
-        tickets = Tickets.objects.filter(assigned_to=user.username).order_by('-created_at')        
-        
+        # tickets = Tickets.objects.filter(assigned_to=user.username).order_by('-created_at')  
+        tickets = Tickets.objects.all() 
+        if date_of_incident:
+            tickets = tickets.filter(date_of_incident__contains=date_of_incident)
+        if contact_name:
+            tickets = tickets.filter(contact_name__contains=contact_name) 
+        if contact_number:
+            tickets = tickets.filter(contact_number__contains=contact_number)
+        if insurer:
+            tickets = tickets.filter(insurer__contains=insurer)
+        if ticket_type:
+            tickets = tickets.filter(ticket_type__contains=ticket_type)
+        if ticket_status:
+            tickets = tickets.filter(ticket_status__contains=ticket_status)
+        if vehicle_reg_num:
+            tickets = tickets.filter(vehicle_reg_num__contains=vehicle_reg_num)
+        if vehicle_manufacturer:
+            tickets = tickets.filter(vehicle_manufacturer__contains=vehicle_manufacturer)
+        if vehicle_model:
+            tickets = tickets.filter(vehicle_model__contains=vehicle_model)
+        if assigned_to:
+            tickets = tickets.filter(assigned_to__contains=assigned_to)
+        if tow_from:
+            tickets = tickets.filter(tow_from__contains=tow_from)
+        if tow_to_workshop:
+            tickets = tickets.filter(tow_to_workshop__contains=tow_to_workshop)
+        if tow_to_address:
+            tickets = tickets.filter(tow_to_address__contains=tow_to_address)
+        tickets = tickets.order_by('-created_at')
         pagenum = math.ceil(tickets.count()/PAGINATION_COUNT)
         paginator = Paginator(tickets,PAGINATION_COUNT)   
         resultscollection = paginator.get_page(currentPage) 

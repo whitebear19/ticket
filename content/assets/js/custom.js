@@ -12,15 +12,18 @@ jQuery(function ($) {
     (function() {
        function get_tickets()
        {
+           var data = $(".search_filter").serialize();
             $.ajax({
                 url: "/ticket/get_tickets",
                 method: 'get',
                 type: 'json',
+                data: data,
                 success: function(response) 
                 {
+                    $(".ticket_list").html("");
                     if(response.results.length > 0)
                     {
-                        var data = response.results;
+                        var data = response.results;                        
                         for (var i = 0; i < data.length; i++) {
                             data[i];
                             var html = `
@@ -71,7 +74,7 @@ jQuery(function ($) {
                                         <a class="btn_transparent btn_edit_ticket text-green mr-2" href="/ticket/edit/${data[i].id}" data-id="${data[i].id}">
                                             <i class="far fa-edit"></i>
                                         </a>
-                                        <button class="btn_transparent btn_delete_ticket text-red" data-id="${data[i].id}">
+                                        <button type="buttom" class="btn_transparent btn_delete_ticket text-red" data-id="${data[i].id}">
                                             <i class="far fa-trash-alt"></i>
                                         </button>
                                     </td>
@@ -86,7 +89,7 @@ jQuery(function ($) {
                     {
                         var html = `
                                 <tr>
-                                    <td class="text-center">
+                                    <td class="text-center" colspan="15">
                                         <p>There is no any ticket yet.</p>
                                     </td>                                   
                                 </tr>
@@ -305,7 +308,12 @@ jQuery(function ($) {
         $(document).on('click','.alertborder',function(){
             $(this).removeClass('alertborder');
         });
-
+        $(document).on('click','.btn_filter_clear',function(){
+            location.reload();
+        });
+        $(document).on('click','.btn_filter',function(){
+            get_tickets();
+        });
         $(document).ready(function(){
             get_tickets(); 
             get_location_response();

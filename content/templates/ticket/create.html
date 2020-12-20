@@ -18,161 +18,226 @@
             </div>
             <form action="" id="form_ticket" method="post">
                 {% csrf_token %}
-                <div class="body_ticket">     
-                    <div class="row">
-                        <div class="col-md-6">
-                            <table class="table">
-                                <tr>
-                                    <td><label for="">Date of Incident <span class="text-red">*</span></label></td>
-                                    <td>
-                                        <input type="date" name="date_of_incident" class="form-control required"
+                <div class="body_ticket"> 
+                    <div class="wrapper_item">
+                        <label for="" class="title">General Information</label>
+                        <div class="wrapper_part">                        
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="row mt-4">
+                                        <div class="col-md-5">
+                                            <label for="">Date of Incident <span class="text-red">*</span></label>
+                                        </div>
+                                        <div class="col-md-7">
+                                            <input type="date" name="date_of_incident" class="form-control required"
                                             {% if ticket %}
                                                 value="{{ ticket.date_of_incident }}"
                                             {% endif %}
                                             name="">
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td><label for="">Contact Name <span class="text-red">*</span></label></td>
-                                    <td>
-                                        <input type="text" name="contact_name" class="form-control required"
+                                        </div>
+                                    </div>
+                                    <div class="row mt-4">
+                                        <div class="col-md-5">
+                                            <label for="">Assigned To <span class="text-red">*</span></label>                                        
+                                        </div>
+                                        <div class="col-md-7">
+                                            <select name="assigned_to" class="form-control required" name="">                                            
+                                                <option value="{{ user.username }}">{{ user.username }}</option>                                            
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="row mt-4">
+                                        <div class="col-md-5">
+                                            <label for="">Insurer</label>                                        
+                                        </div>
+                                        <div class="col-md-7">
+                                            <select name="insurer" class="form-control" name="">
+                                                <option value="">--select--</option>
+                                                <option value="AXA">AXA</option>
+                                                <option value="Berjaya">Berjaya</option>
+                                                <option value="Pacific">Pacific</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="row mt-4">
+                                        <div class="col-md-5">
+                                            <label for="">Ticket Type <span class="text-red">*</span></label>
+                                        </div>
+                                        <div class="col-md-7">
+                                            <select name="ticket_type" class="form-control required" name="">
+                                                <option value="">--select--</option>
+                                                <option value="Towing/Carrier">Towing/Carrier</option>
+                                                <option value="Towing Basement">Towing Basement</option>
+                                                <option value="Change Battery">Change Battery</option>
+                                                <option value="Jump Start">Jump Start</option>
+                                            </select>      
+                                        </div>
+                                    </div>
+                                    <div class="row mt-4">
+                                        <div class="col-md-5">
+                                            <label for="">Ticket Status <span class="text-red">*</span></label>
+                                        </div>
+                                        <div class="col-md-7">
+                                            <select name="ticket_status" class="form-control required" name="">
+                                                <option value="In Progress">In Progress</option>
+                                                <option value="Completed">Completed</option>
+                                            </select>
+                                        </div>
+                                    </div>                                
+                                </div>
+                            </div>
+                        </div> 
+                    </div>   
+                    <div class="wrapper_item">
+                        <label for="" class="title">Contact Information</label>
+                        <div class="wrapper_part">                        
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="row mt-4">
+                                        <div class="col-md-5">
+                                            <label for="">Contact Name <span class="text-red">*</span></label>                                       
+                                        </div>
+                                        <div class="col-md-7">
+                                            <input type="text" name="contact_name" class="form-control required"
+                                                    {% if ticket %}
+                                                        value="{{ ticket.contact_name }}"
+                                                    {% endif %}
+                                                name="">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="row mt-4">
+                                        <div class="col-md-5">
+                                            <label for="">Contact Number <span class="text-red">*</span></label>                                    
+                                        </div>
+                                        <div class="col-md-7">
+                                            <input type="text" name="contact_number" class="form-control required"
+                                                {% if ticket %}
+                                                    value="{{ ticket.contact_number }}"
+                                                {% endif %}
+                                            name="">
+                                        </div>
+                                    </div>                                                 
+                                </div>
+                            </div>
+                        </div> 
+                    </div>
+                    
+                    <div class="wrapper_item">
+                        <label for="" class="title">Vehicle Information</label>
+                        <div class="wrapper_part">                            
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="row mt-4">
+                                        <div class="col-md-5">
+                                            <label for="">Vehicle Registration Number <span class="text-red">*</span></label> 
+                                        </div>
+                                        <div class="col-md-7">
+                                            <input type="text" name="vehicle_reg_num" class="form-control required" placeholder="ABC1234"
+                                                {% if ticket %}
+                                                    value="{{ ticket.vehicle_reg_num }}"
+                                                {% endif %}
+                                                name="">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="row mt-4">
+                                        <div class="col-md-5">
+                                            <label for="">Vehicle Manufacturer</label>                                                                  
+                                        </div>
+                                        <div class="col-md-7">
+                                            <select name="vehicle_manufacturer" class="form-control" name="">
+                                                <option value="">--select--</option>
+                                                {% if vehicle_manufacturer %}
+                                                    {% for item in vehicle_manufacturer  %}
+                                                        <option value="{{ item.name }}">{{ item.name }}</option>
+                                                    {% endfor %}
+                                                {% endif %}
+                                            </select>
+                                        </div>
+                                    </div>     
+                                    <div class="row mt-4">
+                                        <div class="col-md-5">
+                                            <label for="">Vehicle Model</label>                                                              
+                                        </div>
+                                        <div class="col-md-7">
+                                            <input type="text" name="vehicle_model" class="form-control"
                                             {% if ticket %}
-                                                value="{{ ticket.contact_name }}"
-                                            {% endif %}
-                                        name="">
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td><label for="">Contact Number <span class="text-red">*</span></label></td>
-                                    <td>
-                                        <input type="text" name="contact_number" class="form-control required"
-                                            {% if ticket %}
-                                                value="{{ ticket.contact_number }}"
-                                            {% endif %}
-                                        name="">
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td><label for="">Insurer</label></td>
-                                    <td>
-                                        <select name="insurer" class="form-control" name="">
-                                            <option value="">--select--</option>
-                                            <option value="AXA">AXA</option>
-                                            <option value="Berjaya">Berjaya</option>
-                                            <option value="Pacific">Pacific</option>
-                                        </select>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td><label for="">Ticket Type <span class="text-red">*</span></label></td>
-                                    <td>
-                                        <select name="ticket_type" class="form-control required" name="">
-                                            <option value="">--select--</option>
-                                            <option value="Towing/Carrier">Towing/Carrier</option>
-                                            <option value="Towing Basement">Towing Basement</option>
-                                            <option value="Change Battery">Change Battery</option>
-                                            <option value="Jump Start">Jump Start</option>
-                                        </select>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td><label for="">Ticket Status <span class="text-red">*</span></label></td>
-                                    <td>
-                                        <select name="ticket_status" class="form-control required" name="">
-                                            <option value="In Progress">In Progress</option>
-                                            <option value="Completed">Completed</option>
-                                        </select>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td><label for="">Vehicle Registration Number <span class="text-red">*</span></label></td>
-                                    <td>
-                                        <input type="text" name="vehicle_reg_num" class="form-control required" placeholder="ABC1234"
-                                        {% if ticket %}
-                                            value="{{ ticket.vehicle_reg_num }}"
-                                        {% endif %}
-                                        name="">
-                                    </td>
-                                </tr>
-                            </table>                         
-                        </div>    
-                        <div class="col-md-6">
-                            <table class="table">
-                                <tr>
-                                    <td><label for="">Vehicle Manufacturer</label></td>
-                                    <td>
-                                        <select name="vehicle_manufacturer" class="form-control" name="">
-                                            <option value="">--select--</option>
-                                            {% if vehicle_manufacturer %}
-                                                {% for item in vehicle_manufacturer  %}
-                                                    <option value="{{ item.name }}">{{ item.name }}</option>
-                                                {% endfor %}
-                                            {% endif %}
-                                        </select>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td><label for="">Vehicle Model</label></td>
-                                    <td>
-                                        <input type="text" name="vehicle_model" class="form-control"
-                                        {% if ticket %}
-                                            value="{{ ticket.vehicle_model }}"
-                                        {% endif %}
-                                        name="">
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td><label for="">Assigned To <span class="text-red">*</span></label></td>
-                                    <td>
-                                        <select name="assigned_to" class="form-control required" name="">                                            
-                                            <option value="{{ user.username }}">{{ user.username }}</option>                                            
-                                        </select>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td><label for="">Tow From <span class="text-red">*</span></label></td>
-                                    <td>
-                                        <input type="text" name="tow_from" class="form-control required mr-2"
-                                            {% if ticket %}
-                                                value="{{ ticket.tow_from }}"
+                                                value="{{ ticket.vehicle_model }}"
                                             {% endif %}
                                             name="">
-                                        <div class="d-flex mt-3">                                            
-                                            <button type="button" class="btn btn_blue btn_send_link mr-2">
-                                                Send Link
-                                            </button>
-                                            <button type="button" class="btn btn_blue btn_get_location">
-                                                Get Location
-                                            </button>
                                         </div>
-                                        
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td><label for="">Tow To Workshop <span class="text-red">*</span></label></td>
-                                    <td>
-                                        <select name="tow_to_workshop" class="form-control required" name="">
-                                            <option value="">--select--</option> 
-                                            {% if towtoworkshop %}
-                                                {% for item in towtoworkshop  %}
-                                                    <option value="{{ item.name }}">{{ item.name }}</option>
-                                                {% endfor %}
-                                            {% endif %}                                  
-                                        </select>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td><label for="">Tow To Address <span class="text-red">*</span></label></td>
-                                    <td>
-                                        <input type="text" name="tow_to_address" class="form-control required"
-                                        {% if ticket %}
-                                            value="{{ ticket.tow_to_address }}"
-                                        {% endif %}
-                                        name="">
-                                    </td>
-                                </tr>                                
-                            </table>                         
-                        </div>  
+                                    </div>                                              
+                                </div>
+                            </div>
+                        </div> 
+                    </div>
+
+                    <div class="wrapper_item">
+                        <label for="" class="title">Towing Information</label>
+                        <div class="wrapper_part">                           
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="row mt-4">
+                                        <div class="col-md-5">
+                                            <label for="">Tow From <span class="text-red">*</span></label>
+                                        </div>
+                                        <div class="col-md-7">
+                                            <input type="text" name="tow_from" class="form-control required mr-2"
+                                                {% if ticket %}
+                                                    value="{{ ticket.tow_from }}"
+                                                {% endif %}
+                                                name="">   
+                                                
+                                            <div class="d-flex mt-3">                                            
+                                                <button type="button" class="btn btn_blue btn_send_link mr-2">
+                                                    Send Link
+                                                </button>
+                                                <button type="button" class="btn btn_blue btn_get_location">
+                                                    Get Location
+                                                </button>
+                                            </div>
+                                        </div>                                    
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="row mt-4">
+                                        <div class="col-md-5">
+                                            <label for="">Tow To Workshop <span class="text-red">*</span></label>                                                  
+                                        </div>
+                                        <div class="col-md-7">
+                                            <select name="tow_to_workshop" class="form-control required" name="">
+                                                <option value="">--select--</option> 
+                                                {% if towtoworkshop %}
+                                                    {% for item in towtoworkshop  %}
+                                                        <option value="{{ item.name }}">{{ item.name }}</option>
+                                                    {% endfor %}
+                                                {% endif %}                                  
+                                            </select>
+                                        </div>
+                                    </div>     
+                                    <div class="row mt-4">
+                                        <div class="col-md-5">
+                                            <label for="">Tow To Address <span class="text-red">*</span></label>                                                      
+                                        </div>
+                                        <div class="col-md-7">
+                                            <input type="text" name="tow_to_address" class="form-control required"
+                                            {% if ticket %}
+                                                value="{{ ticket.tow_to_address }}"
+                                            {% endif %}
+                                            name="">
+                                        </div>
+                                    </div>                                              
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="row mt-5">
                         <div class="col-md-12 text-center">
                             <button type="button" class="btn btn_blue btn_create_ticket">
                                 {% if ticket %}

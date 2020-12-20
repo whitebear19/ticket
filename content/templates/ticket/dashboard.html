@@ -3,23 +3,122 @@
 {% load static %}
 {% block content %}
     <div class="main-section">
-        <div class="container">
+        <div class="container-fluid">
         <div class="main-section-data">
             <div class="row">
-                <div class="header_ticket">
-                    <button class="btn btn_ticket">Action</button>
+                <div class="header_ticket">                    
                     <a class="btn btn_ticket" href="{% url 'ticket:create' %}">Add Ticket</a>                    
                 </div>
             </div>
             <div class="body_ticket">     
                 <div class="row">
                     <div class="col-md-12">
-                        <table class="table">
-                            <tbody class="ticket_list">
-                                
-                            </tbody>
-                            
-                        </table>
+                        <form action="" class="search_filter" method="get">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <td></td>
+                                        <td class="text-center">Date of Incident</td>
+                                        <td class="text-center">Contact Name</td>
+                                        <td class="text-center">Contact Number</td>
+                                        <td class="text-center">Insurer</td>
+                                        <td class="text-center">Ticket Type</td>
+                                        <td class="text-center">Ticket Status</td>
+                                        <td class="text-center">Vehicle Registration Number</td>
+                                        <td class="text-center">Vehicle Manufacturer</td>
+                                        <td class="text-center">Vehicle Model</td>
+                                        <td class="text-center">Assigned To</td>
+                                        <td class="text-center">Tow From</td>
+                                        <td class="text-center">Tow To Workshop</td>
+                                        <td class="text-center">Tow To Address</td>
+                                        <td class="text-center">
+                                            
+                                        </td>  
+                                    </tr>
+                                    <tr>
+                                    
+                                        <td></td>
+                                        <td class="text-center">                                            
+                                            <input type="date" name="date_of_incident" class="form-control">
+                                        </td>
+                                        <td class="text-center">
+                                            <input type="text" name="contact_name" class="form-control">
+                                        </td>
+                                        <td class="text-center">
+                                            <input type="text" name="contact_number" class="form-control">
+                                        </td>
+                                        <td class="text-center">                                            
+                                            <select name="insurer" class="form-control">
+                                                <option value="">--select--</option>
+                                                <option value="AXA">AXA</option>
+                                                <option value="Berjaya">Berjaya</option>
+                                                <option value="Pacific">Pacific</option>
+                                            </select>
+                                        </td>
+                                        <td class="text-center">                                            
+                                            <select name="ticket_type" class="form-control">
+                                                <option value="">--select--</option>
+                                                <option value="Towing/Carrier">Towing/Carrier</option>
+                                                <option value="Towing Basement">Towing Basement</option>
+                                                <option value="Change Battery">Change Battery</option>
+                                                <option value="Jump Start">Jump Start</option>
+                                            </select>      
+                                        </td>
+                                        <td class="text-center">                                            
+                                            <select name="ticket_status" class="form-control">
+                                                <option value="In Progress">In Progress</option>
+                                                <option value="Completed">Completed</option>
+                                            </select>
+                                        </td>
+                                        <td class="text-center">
+                                            <input type="text" name="vehicle_reg_num" class="form-control">
+                                        </td>
+                                        <td class="text-center">                                            
+                                            <select name="vehicle_manufacturer" class="form-control">
+                                                <option value="">--select--</option>
+                                                {% if vehicle_manufacturer %}
+                                                    {% for item in vehicle_manufacturer  %}
+                                                        <option value="{{ item.name }}">{{ item.name }}</option>
+                                                    {% endfor %}
+                                                {% endif %}
+                                            </select>
+                                        </td>
+                                        <td class="text-center">
+                                            <input type="text" name="vehicle_model" class="form-control">
+                                        </td>
+                                        <td class="text-center">
+                                            <input type="text" name="assigned_to" class="form-control">
+                                        </td>
+                                        <td class="text-center">
+                                            <input type="text" name="tow_from" class="form-control">
+                                        </td>
+                                        <td class="text-center">                                            
+                                            <select name="tow_to_workshop" class="form-control">
+                                                <option value="">--select--</option> 
+                                                {% if towtoworkshop %}
+                                                    {% for item in towtoworkshop  %}
+                                                        <option value="{{ item.name }}">{{ item.name }}</option>
+                                                    {% endfor %}
+                                                {% endif %}                                  
+                                            </select>
+                                        </td>
+                                        <td class="text-center">
+                                            <input type="text" name="tow_to_address" class="form-control">
+                                        </td>
+                                        <td class="text-center">
+                                            <div class="mt-2">
+                                                <button type="button" class="btn_transparent btn_filter mr-2"><i class="fa fa-print-search"></i></button>
+                                                <button type="button" class="btn_transparent btn_filter_clear"><i class="fas fa-times"></i></button>
+                                            </div>                                        
+                                        </td> 
+                                    
+                                    </tr>
+                                </thead>
+                                <tbody class="ticket_list">
+                                    
+                                </tbody>                                
+                            </table>
+                        </form>
                     </div>
                 </div>
             </div>
