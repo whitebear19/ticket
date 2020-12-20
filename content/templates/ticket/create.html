@@ -210,11 +210,11 @@
                                             <label for="">Tow To Workshop <span class="text-red">*</span></label>                                                  
                                         </div>
                                         <div class="col-md-7">
-                                            <select name="tow_to_workshop" class="form-control required" name="">
+                                            <select name="tow_to_workshop" class="form-control required tow_to_workshop" name="">
                                                 <option value="">--select--</option> 
                                                 {% if towtoworkshop %}
                                                     {% for item in towtoworkshop  %}
-                                                        <option value="{{ item.name }}">{{ item.name }}</option>
+                                                        <option value="{{ item.name }}" data-address="{{ item.address }}">{{ item.name }}</option>
                                                     {% endfor %}
                                                 {% endif %}                                  
                                             </select>

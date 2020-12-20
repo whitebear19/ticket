@@ -319,7 +319,11 @@ jQuery(function ($) {
             get_tickets(); 
             get_location_response();
            
-        });        
+        });   
+        $('.tow_to_workshop').on('change', function() {
+            var address = $(this).find(':selected').data('address');
+            $("input[name='tow_to_address']").val(address);
+        });     
     }());
 
  
