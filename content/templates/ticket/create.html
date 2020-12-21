@@ -214,7 +214,11 @@
                                                 <option value="">--select--</option> 
                                                 {% if towtoworkshop %}
                                                     {% for item in towtoworkshop  %}
-                                                        <option value="{{ item.name }}" data-address="{{ item.address }}">{{ item.name }}</option>
+                                                        <option value="{{ item.name }}" data-address="{{ item.address }}"
+                                                            {% if item.name == ticket.tow_to_workshop %}
+                                                                selected
+                                                            {% endif %}
+                                                        >{{ item.name }}</option>
                                                     {% endfor %}
                                                 {% endif %}                                  
                                             </select>
@@ -276,6 +280,7 @@
                 var ticket_status = $(".ticket_status").val();
                 var vehicle_manufacturer = $(".vehicle_manufacturer").val();
                 var tow_to_workshop = $(".tow_to_workshop").val();
+               
                 $('select[name="insurer"] option[value="'+insurer+'"]').attr('selected','selected');
                 $('select[name="ticket_type"] option[value="'+ticket_type+'"]').attr('selected','selected');
                 $('select[name="ticket_status"] option[value="'+ticket_status+'"]').attr('selected','selected');
